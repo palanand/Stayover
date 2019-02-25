@@ -28,25 +28,20 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   state = {
-    isLoading: false
+    loading: false
   };
 
   render() {
     function goTonewPage(myprop) {
       myprop.setState({
-        isLoading: true
+        loading: true
       });
       setTimeout(() => {
         myprop.props.navigation.navigate("SecondPage");
-      }, 1500);
+      }, 1000);
     }
     return (
       <View style={styles.container}>
-        <ActivityIndicator
-          size="large"
-          color="#0000ff"
-          animating={this.state.isLoading}
-        />
         <Text style={styles.welcome}>Welcome to Home!</Text>
         <Button title="Go to second page" onPress={() => goTonewPage(this)} />
       </View>
