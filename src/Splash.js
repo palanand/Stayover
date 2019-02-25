@@ -20,13 +20,15 @@ export default class Splash extends Component {
       index: 0,
       actions: [NavigationActions.navigate({ routeName: "Home" })]
     });
+    const { splashimg, splashimgtouch, container } = styles;
 
     return (
-      <View style={styles.container}>
+      <View style={container}>
         <TouchableHighlight
+          style={splashimgtouch}
           onPress={() => this.props.navigation.dispatch(resetAction)}
         >
-          <Image source={require("./img/splash.png")} />
+          <Image source={require("./img/splash.png")} style={splashimg} />
         </TouchableHighlight>
       </View>
     );
@@ -36,18 +38,21 @@ export default class Splash extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff"
+  },
+  splashimgtouch: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    marginLeft: "auto",
+    marginRight: "auto"
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
+  splashimg: {
+    flex: 1,
+    justifyContent: "center",
+    resizeMode: "contain",
+    alignItems: "center",
+    marginLeft: "auto",
+    marginRight: "auto"
   }
 });
