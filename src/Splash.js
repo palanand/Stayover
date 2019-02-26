@@ -18,7 +18,7 @@ export default class Splash extends Component {
   render() {
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: "Home" })]
+      actions: [NavigationActions.navigate({ routeName: "Login" })]
     });
     const { splashimg, splashimgtouch, container } = styles;
 
@@ -28,7 +28,7 @@ export default class Splash extends Component {
           style={splashimgtouch}
           onPress={() => this.props.navigation.dispatch(resetAction)}
         >
-          <Image source={require("./img/splash.png")} style={splashimg} />
+          <Image source={require("./assets/splash.png")} style={splashimg} />
         </TouchableHighlight>
       </View>
     );
