@@ -1,6 +1,10 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
-import { createAppContainer, createBottomTabNavigator } from "react-navigation";
+import {
+  createAppContainer,
+  NavigationEvents,
+  createBottomTabNavigator
+} from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import Explore from "./FooterElements/Explore";
 import Inbox from "./FooterElements/Inbox";
@@ -8,7 +12,12 @@ import Profile from "./FooterElements/Profile";
 import Trips from "./FooterElements/Trips";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Saved from "./FooterElements/Saved";
-import { Provider as PaperProvider } from "react-native-paper";
+
+<NavigationEvents
+  onWillFocus={payload => {
+    console.log("will focus", payload);
+  }}
+/>;
 
 const Home = createBottomTabNavigator(
   {
@@ -16,7 +25,9 @@ const Home = createBottomTabNavigator(
       screen: Explore,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon style={{ fontSize: 20 }}>search</Icon>
+          <Icon style={{ fontSize: 20 }} color={tintColor}>
+            search
+          </Icon>
         )
       })
     },
@@ -24,7 +35,9 @@ const Home = createBottomTabNavigator(
       screen: Saved,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon style={{ fontSize: 20 }}>save</Icon>
+          <Icon style={{ fontSize: 20 }} color={tintColor}>
+            save
+          </Icon>
         )
       })
     },
@@ -32,7 +45,9 @@ const Home = createBottomTabNavigator(
       screen: Trips,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon style={{ fontSize: 20 }}>work</Icon>
+          <Icon style={{ fontSize: 20 }} color={tintColor}>
+            work
+          </Icon>
         )
       })
     },
@@ -40,7 +55,9 @@ const Home = createBottomTabNavigator(
       screen: Inbox,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon style={{ fontSize: 20 }}>chat</Icon>
+          <Icon style={{ fontSize: 20 }} color={tintColor}>
+            chat
+          </Icon>
         )
       })
     },
@@ -48,14 +65,16 @@ const Home = createBottomTabNavigator(
       screen: Profile,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon style={{ fontSize: 20 }}>person</Icon>
+          <Icon style={{ fontSize: 20 }} color={tintColor}>
+            person
+          </Icon>
         )
       })
     }
   },
   {
-    activeColor: "#6239B1",
-    inactiveColor: "grey",
+    activeColor: "#4D1FA7",
+    inactiveColor: "#CACACA",
     labeled: true,
     barStyle: { backgroundColor: "white" }
   }

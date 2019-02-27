@@ -8,7 +8,8 @@
  */
 import React, { Component } from "react";
 import SwitchSelector from "react-native-switch-selector";
-import { StyleSheet, Button, View, Image, TextInput } from "react-native";
+import { StyleSheet, Button, Text, View, Image, TextInput } from "react-native";
+import { CheckBox } from "react-native-elements";
 
 export default class Login extends Component {
   render() {
@@ -16,7 +17,7 @@ export default class Login extends Component {
       <View style={styles.container}>
         <View style={styles.loginarea}>
           <Image
-            source={require("../assets/credit_card.png")}
+            source={require("../assets/authentication.png")}
             style={styles.logimage}
           />
         </View>
@@ -43,11 +44,18 @@ export default class Login extends Component {
           />
         </View>
         <View style={styles.loginoption}>
+          <Text style={styles.plainText}>User name / Email address</Text>
           <TextInput style={styles.textinputstyle} />
+          <Text style={styles.plainText}>Password</Text>
+          <TextInput style={styles.textinputstyle} />
+          <CheckBox style={styles.plainText} title="Remember me" />
+
           <Button
-            title="go to home"
+            color="#EBAF00"
+            title="Done"
             onPress={() => this.props.navigation.navigate("Home")}
           />
+          <Text style={styles.ForgotPass}>Forgot password</Text>
         </View>
       </View>
     );
@@ -93,10 +101,22 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0
   },
+  ForgotPass: {
+    flex: 1,
+    color: "#4D1FA7",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "bold"
+  },
+  plainText: {
+    flex: 1,
+    color: "#4D1FA7",
+    fontWeight: "bold"
+  },
   textinputstyle: {
     flex: 1,
-    backgroundColor: "red",
-    borderColor: "black",
+    backgroundColor: "transparent",
+    borderColor: "#DFDFDF",
     borderWidth: 2,
     borderRadius: 25
   }
