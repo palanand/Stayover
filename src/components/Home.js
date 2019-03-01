@@ -6,12 +6,8 @@ import {
   createBottomTabNavigator
 } from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import Explore from "./FooterElements/Explore";
-import Inbox from "./FooterElements/Inbox";
-import Profile from "./FooterElements/Profile";
-import Trips from "./FooterElements/Trips";
+import { Inbox, Profile, Trips, Saved, Explore } from "./FooterElements";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import Saved from "./FooterElements/Saved";
 
 <NavigationEvents
   onWillFocus={payload => {

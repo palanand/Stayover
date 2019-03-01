@@ -11,7 +11,7 @@ import {
 const winHeight = Dimensions.get("window").height;
 const winWidth = Dimensions.get("window").width;
 
-export default class Inbox extends React.Component {
+class Inbox extends React.Component {
   render() {
     const { textstyle, imageStyle, container } = styles;
     return (
@@ -24,6 +24,7 @@ export default class Inbox extends React.Component {
   }
 }
 
+export { Inbox };
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -11,7 +11,7 @@ import {
 const winHeight = Dimensions.get("window").height;
 const winWidth = Dimensions.get("window").width;
 
-export default class Saved extends React.Component {
+class Saved extends React.Component {
   render() {
     const { textstyle, imageStyle, container } = styles;
     return (
@@ -23,6 +23,8 @@ export default class Saved extends React.Component {
     );
   }
 }
+
+export { Saved };
 
 const styles = StyleSheet.create({
   container: {

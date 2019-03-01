@@ -11,7 +11,7 @@ import {
 const winHeight = Dimensions.get("window").height;
 const winWidth = Dimensions.get("window").width;
 
-export default class Profile extends React.Component {
+class Profile extends React.Component {
   render() {
     const { textstyle, imageStyle, container } = styles;
     return (
@@ -23,6 +23,7 @@ export default class Profile extends React.Component {
     );
   }
 }
+export { Profile };
 
 const styles = StyleSheet.create({
   container: {

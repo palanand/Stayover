@@ -12,7 +12,7 @@ import {
 const winHeight = Dimensions.get("window").height;
 const winWidth = Dimensions.get("window").width;
 
-export default class Explore extends React.Component {
+class Explore extends React.Component {
   render() {
     const { textstyle, imageStyle, container } = styles;
     return (
@@ -28,6 +28,7 @@ export default class Explore extends React.Component {
   }
 }
 
+export { Explore };
 const styles = StyleSheet.create({
   container: {
     top: 220,
