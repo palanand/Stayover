@@ -14,22 +14,22 @@ import { StackActions, NavigationActions } from "react-navigation";
 
 export default class Splash extends Component {
   state = {};
-
-  render() {
+  componentWillMount() {
+    setTimeout(this.startProcess.bind(this), 1); //login logic here
+  }
+  startProcess() {
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: "Login" })]
     });
+    this.props.navigation.dispatch(resetAction);
+  }
+  render() {
     const { splashimg, splashimgtouch, container } = styles;
 
     return (
       <View style={container}>
-        <TouchableOpacity
-          style={splashimgtouch}
-          onPress={() => this.props.navigation.dispatch(resetAction)}
-        >
-          <Image source={require("./assets/splash.png")} style={splashimg} />
-        </TouchableOpacity>
+        <Image source={require("./assets/splash.png")} style={splashimg} />
       </View>
     );
   }

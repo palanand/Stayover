@@ -59,7 +59,7 @@ export default class DatePickerModal extends Component {
         <TouchableOpacity onPress={() => this.setModalVisible(true)}>
           <TextInput
             style={styles.textinputstyle}
-            placeholder="Check-in"
+            placeholder="Check-in / Check-out"
             editable={false}
           />
         </TouchableOpacity>
@@ -80,9 +80,7 @@ const styles = StyleSheet.create({
     borderColor: "#DFDFDF",
     borderWidth: 1,
     borderRadius: 25,
-    marginHorizontal: 10,
-    marginBottom: 10,
-    paddingHorizontal: 10
+    margin: 10
   },
   buttonstyle: {
     backgroundColor: "transparent",

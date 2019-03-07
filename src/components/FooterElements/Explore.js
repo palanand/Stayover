@@ -31,7 +31,9 @@ class Explore extends React.Component {
       gestinputstyle,
       roominputstyle,
       loginarea,
-      logimage
+      imageStyle,
+      logimage,
+      Headingtext
     } = styles;
     return (
       <View style={container}>
@@ -40,7 +42,15 @@ class Explore extends React.Component {
             console.log(this.props.navigation);
           }}
         />
-
+        <View style={{ alignItems: "center", marginLeft: 15, marginRight: 15 }}>
+          <Image
+            style={imageStyle}
+            source={require("../../assets/homepage.png")}
+          />
+          <Text style={Headingtext}>
+            Book your favorite hotel from anywhere and any place!
+          </Text>
+        </View>
         <SearchBar
           lightTheme={true}
           containerStyle={styles.searchcontainer}
@@ -51,7 +61,13 @@ class Explore extends React.Component {
         <View>
           <DatePickerModal />
         </View>
-        <View>
+        <View
+          style={{
+            flexDirection: "row",
+            marginLeft: "auto",
+            marginRight: "auto"
+          }}
+        >
           <TextInput style={gestinputstyle} placeholder="Guests" />
           <TextInput style={roominputstyle} placeholder="Room Type" />
         </View>
@@ -70,12 +86,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     margin: 12,
-    top: "30%"
+    flexDirection: "column"
   },
   loginarea: {
     top: 50,
     padding: 20,
     backgroundColor: "#eee"
+  },
+  Headingtext: {
+    color: "#4D1FA7",
+    fontSize: 19,
+    textAlign: "center"
   },
   logimage: {
     flex: 1,
@@ -86,6 +107,11 @@ const styles = StyleSheet.create({
   plainText: {
     color: "#4D1FA7",
     fontWeight: "bold"
+  },
+  imageStyle: {
+    resizeMode: "contain",
+    alignItems: "center",
+    width: "55%"
   },
   textinputstyle: {
     backgroundColor: "transparent",
@@ -108,7 +134,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginHorizontal: 10,
     marginBottom: 10,
-    width: "50%",
+    width: "45%",
     paddingHorizontal: 10
   },
   roominputstyle: {
@@ -118,7 +144,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginHorizontal: 10,
     marginBottom: 10,
-    width: "50%",
+    width: "45%",
     paddingHorizontal: 10
   },
   button: {
@@ -131,8 +157,6 @@ const styles = StyleSheet.create({
   searchcontainer: {
     backgroundColor: "transparent",
     borderWidth: 0,
-    paddingHorizontal: 10,
-    marginBottom: 10,
     borderWidth: 0,
     borderTopWidth: 0,
     borderBottomWidth: 0

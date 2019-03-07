@@ -7,7 +7,14 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 import React, { Component } from "react";
-import { Button, Image, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  KeyboardAvoidingView
+} from "react-native";
 import { CheckBox } from "react-native-elements";
 import SwitchSelector from "react-native-switch-selector";
 import { NavigationActions, StackActions } from "react-navigation";
@@ -57,8 +64,8 @@ export default class LoginSignup extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.loginarea}>
+      <KeyboardAvoidingView style={styles.container} enabled>
+        <KeyboardAvoidingView style={styles.loginarea}>
           <Swiper
             ref="swipertop"
             showsButtons={false}
@@ -74,10 +81,10 @@ export default class LoginSignup extends Component {
               style={styles.logimage}
             />
           </Swiper>
-        </View>
+        </KeyboardAvoidingView>
         <Swiper
           ref="swiper"
-          style={{ top: "50%" }}
+          style={{ top: "47%" }}
           showsButtons={false}
           scrollEnabled={false}
           loop={false}
@@ -92,7 +99,7 @@ export default class LoginSignup extends Component {
             spinnerstart={this.SpinnerStart}
           />
         </Swiper>
-        <View style={styles.loginbuttoncontainer}>
+        <KeyboardAvoidingView style={styles.loginbuttoncontainer}>
           <SwitchSelector
             ref="switch"
             initial={0}
@@ -113,9 +120,9 @@ export default class LoginSignup extends Component {
               }
             ]}
           />
-        </View>
+        </KeyboardAvoidingView>
         {this.renderSpinner()}
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

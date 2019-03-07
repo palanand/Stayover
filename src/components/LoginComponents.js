@@ -3,12 +3,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  View,
+  KeyboardAvoidingView,
   Alert,
+  CheckBox,
+  View,
   Image,
   TextInput
 } from "react-native";
-import { CheckBox } from "react-native-elements";
 import PropTypes from "prop-types";
 import { Button } from "react-native-elements";
 import axios from "axios";
@@ -29,14 +30,15 @@ export default class LoginComponents extends Component {
   };
   async LoginPressed() {
     this.props.spinnerstart(true);
-
+    this.onLoginSuccess(); //remove two lines
+    return;
     const response = await axios
       .post(
         "https://vp3zckv2r8.execute-api.us-east-1.amazonaws.com/latest/signup",
         {
           userName: this.state.userName,
           password: this.state.password,
-          email: "this.state.email",
+          // email: "this.state.email",
           countryCode: "sdaf",
           contactNo: "sdaf"
         }
@@ -59,6 +61,10 @@ export default class LoginComponents extends Component {
       });
   }
 
+  onSkipping() {
+    this.props.navigationData.navigation.navigate("Home");
+  }
+
   onLoginSuccess() {
     const resetAction = StackActions.reset({
       index: 0,
@@ -69,7 +75,7 @@ export default class LoginComponents extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.plainText}>User name / Email address</Text>
         <TextInput
           style={styles.textinputstyle}
@@ -80,11 +86,15 @@ export default class LoginComponents extends Component {
           style={styles.textinputstyle}
           onChangeText={text => this.setState({ password: text })}
         />
-        <CheckBox style={styles.plainText} title="Remember me" />
+        <View style={{ flexDirection: "row" }}>
+          <CheckBox style={styles.plainText} />
+          <Text style={styles.remember}>Remember me</Text>
+        </View>
         <Button
           color="#EBAF00"
           title="DONE"
           onPress={this.LoginPressed.bind(this)}
+          buttonStyle={styles.button}
           icon={
             <Icon
               name="chevron-right"
@@ -96,10 +106,10 @@ export default class LoginComponents extends Component {
           }
         />
         <Text style={styles.ForgotPass}>Forgot password</Text>
-        <TouchableOpacity>
-          <Text style={styles.skipapp}>Skip</Text>
+        <TouchableOpacity onPress={this.onSkipping.bind(this)}>
+          <Text style={styles.skipapp}>Skip for now</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -110,28 +120,21 @@ LoginComponents.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.4,
+    flex: 0.47,
     backgroundColor: "#fff",
     width: "90%",
     marginLeft: "auto",
     marginRight: "auto"
   },
   skipapp: {
-    flex: 1,
-    color: "#7856bc",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: "bold",
-    textAlign: "right",
-    marginTop: 10
+    textAlign: "center",
+    textDecorationLine: "underline"
   },
   loginarea: {
-    position: "absolute",
+    position: "relative",
     top: 0,
     left: 0,
     right: 0,
-    height: 270,
-    padding: 20,
     width: "100%",
 
     backgroundColor: "#eee"
@@ -142,7 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    position: "absolute",
+    position: "relative",
     top: 230,
     left: 0,
     width: "100%",
@@ -151,15 +154,15 @@ const styles = StyleSheet.create({
   },
   loginoption: {
     flex: 1,
-    position: "absolute",
+    position: "relative",
     padding: 20,
-    top: 330,
     left: 0,
     right: 0
   },
   ForgotPass: {
     flex: 1,
     color: "#4D1FA7",
+    textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
     fontWeight: "bold"
@@ -169,8 +172,25 @@ const styles = StyleSheet.create({
     color: "#4D1FA7",
     fontWeight: "bold"
   },
+  remember: {
+    alignItems: "flex-start",
+    justifyContent: "center",
+    left: "10%",
+    top: 5,
+    position: "absolute",
+    color: "#4D1FA7"
+  },
+  button: {
+    borderRadius: 25,
+    alignItems: "center",
+    backgroundColor: "#ebaf00"
+  },
+  iconRight: {
+    position: "absolute",
+    top: 12,
+    right: 10
+  },
   textinputstyle: {
-    flex: 1,
     backgroundColor: "transparent",
     borderColor: "#DFDFDF",
     borderWidth: 2,
