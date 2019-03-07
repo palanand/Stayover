@@ -4,21 +4,59 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Alert,
   Image,
   TextInput
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import PropTypes from "prop-types";
 import { Button } from "react-native-elements";
+import axios from "axios";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import { StackActions, NavigationActions } from "react-navigation";
 
 export default class LoginComponents extends Component {
-  LoginPressed() {
+  constructor(props) {
+    super(props);
+    this.onLoginSuccess == this.onLoginSuccess.bind(this);
+  }
+  state = {
+    userName: "",
+    password: ""
+    // email: "",
+  };
+  async LoginPressed() {
     this.props.spinnerstart(true);
-    setTimeout(this.onLoginSuccess.bind(this), 2000); //login logic here
+
+    const response = await axios
+      .post(
+        "https://vp3zckv2r8.execute-api.us-east-1.amazonaws.com/latest/signup",
+        {
+          userName: this.state.userName,
+          password: this.state.password,
+          email: "this.state.email",
+          countryCode: "sdaf",
+          contactNo: "sdaf"
+        }
+      )
+      .then(response => {
+        // handle success
+        console.log(response);
+        this.onLoginSuccess();
+      })
+      .catch(error => {
+        console.log(error.response);
+        this.props.spinnerstart(false);
+        Alert.alert(
+          "Error",
+          "Please provide all mandatory details",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
+        return;
+      });
   }
 
   onLoginSuccess() {
@@ -33,9 +71,15 @@ export default class LoginComponents extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.plainText}>User name / Email address</Text>
-        <TextInput style={styles.textinputstyle} />
+        <TextInput
+          style={styles.textinputstyle}
+          onChangeText={text => this.setState({ userName: text })}
+        />
         <Text style={styles.plainText}>Password</Text>
-        <TextInput style={styles.textinputstyle} />
+        <TextInput
+          style={styles.textinputstyle}
+          onChangeText={text => this.setState({ password: text })}
+        />
         <CheckBox style={styles.plainText} title="Remember me" />
         <Button
           color="#EBAF00"

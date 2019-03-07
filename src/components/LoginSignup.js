@@ -45,8 +45,6 @@ export default class LoginSignup extends Component {
 
   SpinnerStart(value) {
     this.setState({ isLoading: value });
-
-    console.log(value, "heyy");
   }
   onLoginSuccess() {
     const resetAction = StackActions.reset({
@@ -89,7 +87,10 @@ export default class LoginSignup extends Component {
             navigationData={this.props}
             spinnerstart={this.SpinnerStart}
           />
-          <SignupComponents navigationData={this.props} />
+          <SignupComponents
+            navigationData={this.props}
+            spinnerstart={this.SpinnerStart}
+          />
         </Swiper>
         <View style={styles.loginbuttoncontainer}>
           <SwitchSelector

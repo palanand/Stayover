@@ -1,56 +1,121 @@
 import React, { Component } from "react";
-import { StyleSheet, Button, Text, View, Image, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Alert,
+  Button,
+  Text,
+  View,
+  Image,
+  TextInput
+} from "react-native";
 import { CheckBox } from "react-native-elements";
 import { Spinner } from "../components/common/";
 import { StackActions, NavigationActions } from "react-navigation";
+import PropTypes from "prop-types";
+import axios from "axios";
 
 export default class SignupComponents extends Component {
-  state = { isLoading: false };
+  state = {
+    userName: "",
+    password: "",
+    // email: "",
+    countryCode: "",
+    contactNo: ""
+  };
 
-  LoginPressed() {
-    this.setState({ isLoading: true });
+  constructor(props) {
+    super(props);
+    this.onSignupSuccess == this.onSignupSuccess.bind(this);
+  }
+  async SignupPressed() {
+    this.props.spinnerstart(true);
 
-    setTimeout(this.onLoginSuccess.bind(this), 2000); //login logic here
+    const response = await axios
+      .post(
+        "https://vp3zckv2r8.execute-api.us-east-1.amazonaws.com/latest/signup",
+        {
+          userName: this.state.userName,
+          password: this.state.password,
+          email: "this.state.email",
+          countryCode: this.state.countryCode,
+          contactNo: this.state.contactNo
+        }
+      )
+      .then(response => {
+        // handle success
+        console.log(response);
+        this.onSignupSuccess();
+      })
+      .catch(error => {
+        console.log(error.response);
+        this.props.spinnerstart(false);
+        Alert.alert(
+          "Error",
+          "Please provide all mandatory details",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
+        return;
+      });
   }
-  renderSpinner() {
-    if (this.state.isLoading) {
-      return <Spinner style={{ flex: 1 }} />;
-    }
-  }
-  onLoginSuccess() {
+
+  onSignupSuccess() {
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: "Home" })]
     });
 
-    this.setState({ isLoading: false });
     this.props.navigationData.navigation.dispatch(resetAction);
   }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.plainText}>User name / Email address</Text>
-        <TextInput style={styles.textinputstyle} />
+        <TextInput
+          style={styles.textinputstyle}
+          onChangeText={text => {
+            this.setState({ userName: text });
+
+            // var pattern = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+
+            // if (pattern.test(text) == 0) {
+            //   this.setState({ userName: text });
+            // } else {
+            //   this.setState({ email: text });
+            // }
+          }}
+        />
         <Text style={styles.plainText}>Password</Text>
-        <TextInput style={styles.textinputstyle} />
+        <TextInput
+          style={styles.textinputstyle}
+          onChangeText={text => this.setState({ password: text })}
+        />
         <View style={{ flex: 1, flexDirection: "row", margin: 5 }}>
           <Text style={styles.plainText}>Country</Text>
-          <TextInput style={styles.textinputstyle} />
+          <TextInput
+            style={styles.textinputstyle}
+            onChangeText={text => this.setState({ countryCode: text })}
+          />
 
           <Text style={styles.plainText}>Contact No.</Text>
-          <TextInput style={styles.textinputstyle} />
+          <TextInput
+            style={styles.textinputstyle}
+            onChangeText={text => this.setState({ contactNo: text })}
+          />
         </View>
         <Button
           color="#4D1FA7"
           title="SIGN UP"
-          onPress={this.LoginPressed.bind(this)}
+          onPress={this.SignupPressed.bind(this)}
         />
-        {this.renderSpinner()}
       </View>
     );
   }
 }
 
+SignupComponents.propTypes = {
+  spinnerstart: PropTypes.func
+};
 const styles = StyleSheet.create({
   container: {
     flex: 0.4,
