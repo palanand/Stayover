@@ -7,11 +7,19 @@ import {
   StyleSheet,
   Image
 } from "react-native";
-
+import { StackActions, NavigationActions } from "react-navigation";
 const winHeight = Dimensions.get("window").height;
 const winWidth = Dimensions.get("window").width;
 
 class Profile extends React.Component {
+  logoutPressed() {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: "Login" })]
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
   render() {
     const { textstyle, imageStyle, container } = styles;
     return (
@@ -19,6 +27,7 @@ class Profile extends React.Component {
         <Text style={textstyle}>Where To?</Text>
         <Button title="Explore StayOver" />
         <Image style={imageStyle} source={require("../../assets/trips.png")} />
+        <Button title="Logout" onPress={this.logoutPressed.bind(this)} />
       </View>
     );
   }

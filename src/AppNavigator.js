@@ -3,7 +3,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import Home from "./components/Home";
 import { Text, View, Image, Header, StyleSheet } from "react-native";
 import SecondPage from "./components/SecondPage";
-import Login from "./components/Login";
+import LoginSignup from "./components/LoginSignup";
 import Splash from "./Splash";
 import ImageHeader from "./components/ImageHeader";
 
@@ -18,9 +18,9 @@ const AppNavigator = createStackNavigator(
     },
 
     Login: {
-      screen: Login,
+      screen: LoginSignup,
       navigationOptions: ({ navigation }) => ({
-        title: "Login",
+        title: "LoginSignup",
         header: null
       })
     },
@@ -28,13 +28,14 @@ const AppNavigator = createStackNavigator(
       screen: Home,
       navigationOptions: ({ navigation }) => ({
         title: "Explore",
-        header: <ImageHeader />
+        header: null
       })
     },
     SecondPage: {
       screen: SecondPage,
       navigationOptions: ({ navigation }) => ({
-        title: "Second Page"
+        title: "Second Page".anchor,
+        header: null
       })
     }
   },

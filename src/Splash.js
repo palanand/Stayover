@@ -4,7 +4,7 @@ import {
   Platform,
   ActivityIndicator,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
   Text,
   Button,
   Image,
@@ -24,12 +24,12 @@ export default class Splash extends Component {
 
     return (
       <View style={container}>
-        <TouchableHighlight
+        <TouchableOpacity
           style={splashimgtouch}
           onPress={() => this.props.navigation.dispatch(resetAction)}
         >
           <Image source={require("./assets/splash.png")} style={splashimg} />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     );
   }

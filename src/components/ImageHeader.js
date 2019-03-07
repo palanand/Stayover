@@ -12,19 +12,13 @@ const winHeight = Dimensions.get("window").height;
 const winWidth = Dimensions.get("window").width;
 
 class ImageHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      titleText: "Explore"
-    };
-  }
   render() {
     const { imageHead, textstyle } = styles;
 
     return (
       <View>
         <Image source={require("../assets/bg.png")} style={imageHead} />
-        <Text style={textstyle}>{this.state.titleText}</Text>
+        <Text style={styles.textstyle}>{this.props.title}</Text>
       </View>
     );
   }
@@ -34,7 +28,6 @@ export default ImageHeader;
 
 const styles = StyleSheet.create({
   textstyle: {
-    flex: 1,
     alignItems: "center",
     height: 40,
     color: "white",
@@ -43,6 +36,7 @@ const styles = StyleSheet.create({
     top: 13,
     fontSize: 24
   },
+
   imageHead: {
     flex: 1,
     resizeMode: "stretch",

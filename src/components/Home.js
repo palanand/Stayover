@@ -5,15 +5,12 @@ import {
   NavigationEvents,
   createBottomTabNavigator
 } from "react-navigation";
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import { Inbox, Profile, Trips, Saved, Explore } from "./FooterElements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-<NavigationEvents
-  onWillFocus={payload => {
-    console.log("will focus", payload);
-  }}
-/>;
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+import { Inbox, Profile, Trips, Explore, Saved } from "./FooterElements";
+
+import ImageHeader from "../components/ImageHeader";
 
 const Home = createBottomTabNavigator(
   {

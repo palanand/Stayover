@@ -10,8 +10,9 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import AppNavigator from "./src/AppNavigator";
-import { createStore } from "redux";
 import { Provider } from "react-redux";
+import { createStore } from "redux";
+
 import reducers from "./src/reducers";
 
 const instructions = Platform.select({
