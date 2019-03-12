@@ -3,16 +3,18 @@ import {
   Modal,
   Image,
   StyleSheet,
-  TextInput,
+  Text,
+  TouchableHighlight,
   TouchableOpacity,
+  TextInput,
   View,
   Alert
 } from "react-native";
-import { Button } from "react-native-elements";
-
 import CalendarPicker from "react-native-calendar-picker";
+import { Button, SearchBar } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-export default class DatePickerModal extends Component {
+export default class GuestTypes extends Component {
   state = {
     modalVisible: false
   };
@@ -36,7 +38,7 @@ export default class DatePickerModal extends Component {
           }}
         >
           <View style={container}>
-            <TouchableOpacity
+            <TouchableHighlight
               onPress={() => {
                 this.setModalVisible(!this.state.modalVisible);
               }}
@@ -45,24 +47,15 @@ export default class DatePickerModal extends Component {
                 style={imageStyle}
                 source={require("../../assets/exit.png")}
               />
-            </TouchableOpacity>
-            <CalendarPicker
-              onDateChange={this.onDateChange}
-              allowRangeSelection={true}
-              todayBackgroundColor="#f2e6ff"
-              selectedDayColor="#4D1FA7"
-              selectedDayTextColor="#FFFFFF"
-              onDateChange={this.onDateChange.bind(this)}
-            />
-            <Button title="Proceed" buttonStyle={styles.button} />
+            </TouchableHighlight>
+            <Text>Search result</Text>
           </View>
         </Modal>
-
         <TouchableOpacity onPress={() => this.setModalVisible(true)}>
           <TextInput
-            style={styles.textinputstyle}
-            placeholder="Check-in / Check-out"
+            style={styles.gestinputstyle}
             editable={false}
+            placeholder="Guests"
           />
         </TouchableOpacity>
       </View>
@@ -77,12 +70,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column"
   },
-  textinputstyle: {
+  searchcontainer: {
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    borderWidth: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 0
+  },
+  gestinputstyle: {
     backgroundColor: "transparent",
     borderColor: "#DFDFDF",
     borderWidth: 1,
     borderRadius: 25,
-    margin: 10
+    marginHorizontal: 10,
+    marginBottom: 10,
+    paddingHorizontal: 10
   },
   buttonstyle: {
     backgroundColor: "transparent",
@@ -90,8 +92,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 25
   },
-  button: {
-    backgroundColor: "#EBAF00"
+  searchinputstyle: {
+    backgroundColor: "transparent",
+    borderColor: "#DFDFDF",
+    borderWidth: 1,
+    borderRadius: 25,
+    borderTopWidth: 1,
+    borderBottomWidth: 1
   },
   textstyle: {
     flex: 1,
@@ -102,6 +109,10 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     top: 13,
     fontSize: 24
+  },
+  button: {
+    borderRadius: 25,
+    backgroundColor: "#ebaf00"
   },
   imageStyle: {
     alignItems: "flex-end",

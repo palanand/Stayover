@@ -19,7 +19,6 @@ class Inbox extends React.Component {
       <View style={maincontainer}>
         <ImageHeader title="Inbox" />
         <View style={container}>
-          <Button title="Explore StayOver" />
           <Image
             style={imageStyle}
             source={require("../../assets/trips.png")}

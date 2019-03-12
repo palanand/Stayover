@@ -9,7 +9,11 @@ import {
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import DatePickerModal from "../popupsModal/DatePickerModal";
+import RoomTypes from "../popupsModal/RoomTypes";
+import Gueststype from "../popupsModal/Gueststype";
+import SearchCity from "../popupsModal/SearchCity";
 import SearchResultModal from "../popupsModal/SearchResultModal";
+
 import { Button, SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -22,19 +26,8 @@ class Explore extends React.Component {
       title: "Clientes"
     });
   }
-
   render() {
-    const {
-      textinputstyle,
-      container,
-      optionstyle,
-      gestinputstyle,
-      roominputstyle,
-      loginarea,
-      imageStyle,
-      logimage,
-      Headingtext
-    } = styles;
+    const { textinputstyle, container, imageStyle, Headingtext } = styles;
     return (
       <View style={container}>
         <NavigationEvents
@@ -51,13 +44,7 @@ class Explore extends React.Component {
             Book your favorite hotel from anywhere and any place!
           </Text>
         </View>
-        <SearchBar
-          lightTheme={true}
-          containerStyle={styles.searchcontainer}
-          inputContainerStyle={styles.searchinputstyle}
-          placeholder="Where are You traveling?"
-          round={true}
-        />
+        <SearchCity />
         <View>
           <DatePickerModal />
         </View>
@@ -68,8 +55,10 @@ class Explore extends React.Component {
             marginRight: "auto"
           }}
         >
-          <TextInput style={gestinputstyle} placeholder="Guests" />
-          <TextInput style={roominputstyle} placeholder="Room Type" />
+          <Gueststype />
+          <View>
+            <RoomTypes />
+          </View>
         </View>
         <View />
 

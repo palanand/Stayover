@@ -30,8 +30,7 @@ export default class LoginComponents extends Component {
   };
   async LoginPressed() {
     this.props.spinnerstart(true);
-    this.onLoginSuccess(); //remove two lines
-    return;
+
     const response = await axios
       .post(
         "https://vp3zckv2r8.execute-api.us-east-1.amazonaws.com/latest/signup",
@@ -53,7 +52,7 @@ export default class LoginComponents extends Component {
         this.props.spinnerstart(false);
         Alert.alert(
           "Error",
-          "Please provide all mandatory details",
+          "Please enter username & password to login or click on skip for now.",
           [{ text: "OK", onPress: () => console.log("OK Pressed") }],
           { cancelable: false }
         );
@@ -81,12 +80,14 @@ export default class LoginComponents extends Component {
           style={styles.textinputstyle}
           onChangeText={text => this.setState({ userName: text })}
         />
+        <Text />
+
         <Text style={styles.plainText}>Password</Text>
         <TextInput
           style={styles.textinputstyle}
           onChangeText={text => this.setState({ password: text })}
         />
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", margin: 5 }}>
           <CheckBox style={styles.plainText} />
           <Text style={styles.remember}>Remember me</Text>
         </View>
@@ -105,6 +106,7 @@ export default class LoginComponents extends Component {
             />
           }
         />
+        <Text />
         <Text style={styles.ForgotPass}>Forgot password</Text>
         <TouchableOpacity onPress={this.onSkipping.bind(this)}>
           <Text style={styles.skipapp}>Skip for now</Text>

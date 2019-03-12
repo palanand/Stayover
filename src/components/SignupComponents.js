@@ -60,7 +60,7 @@ export default class SignupComponents extends Component {
         this.props.spinnerstart(false);
         Alert.alert(
           "Error",
-          "Please provide all mandatory details",
+          "Please enter all the details.",
           [{ text: "OK", onPress: () => console.log("OK Pressed") }],
           { cancelable: false }
         );
@@ -95,6 +95,7 @@ export default class SignupComponents extends Component {
             // }
           }}
         />
+        <Text />
         <Text style={styles.plainText}>Password</Text>
         <TextInput
           style={styles.textinputstyle}
@@ -106,13 +107,18 @@ export default class SignupComponents extends Component {
           <Text style={styles.plainText}>Country</Text>
           <Text style={styles.plainText}>Contact No.</Text>
         </KeyboardAvoidingView>
-
         <KeyboardAvoidingView
           style={{ flex: 1, flexDirection: "row", margin: 5 }}
         >
           <Picker
             ref="pickerCountry"
-            style={{ height: 30, width: 100, left: 0 }}
+            style={{
+              height: 30,
+              width: 100,
+              left: 0,
+              borderRadius: 25,
+              borderWidth: 2
+            }}
             selectedValue={this.state.language}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({ countryCode: itemValue })
@@ -121,6 +127,7 @@ export default class SignupComponents extends Component {
             <Picker.Item label="IND" value="IND" />
             <Picker.Item label="USA" value="USA" />
           </Picker>
+          <Text style={{ width: "23%" }} />
           <TextInput
             style={styles.contactinputstyle}
             onChangeText={text => this.setState({ contactNo: text })}
@@ -234,7 +241,7 @@ const styles = StyleSheet.create({
     borderColor: "#DFDFDF",
     borderWidth: 2,
     alignItems: "flex-end",
-    width: "30%",
+    width: "40%",
     borderRadius: 25
   }
 });

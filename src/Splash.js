@@ -15,12 +15,12 @@ import { StackActions, NavigationActions } from "react-navigation";
 export default class Splash extends Component {
   state = {};
   componentWillMount() {
-    setTimeout(this.startProcess.bind(this), 1); //login logic here
+    setTimeout(this.startProcess.bind(this), 2000); //login logic here
   }
   startProcess() {
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: "Login" })]
+      actions: [NavigationActions.navigate({ routeName: "Home" })]
     });
     this.props.navigation.dispatch(resetAction);
   }

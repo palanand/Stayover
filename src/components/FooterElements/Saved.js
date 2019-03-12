@@ -19,7 +19,6 @@ class Saved extends React.Component {
       <View style={maincontainer}>
         <ImageHeader title="Saved" />
         <View style={container}>
-          <Button title="Explore StayOver" />
           <Image
             style={imageStyle}
             source={require("../../assets/trips.png")}
