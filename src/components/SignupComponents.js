@@ -40,7 +40,7 @@ export default class SignupComponents extends Component {
           userName: this.state.userName,
           password: this.state.password,
           //email: "this.state.email",
-          countryCode: this.state.countryCode,
+          countryCode: "US",
           contactNo: this.state.contactNo
         }
       )
@@ -99,6 +99,7 @@ export default class SignupComponents extends Component {
         <Text style={styles.plainText}>Password</Text>
         <TextInput
           style={styles.textinputstyle}
+          secureTextEntry={true}
           onChangeText={text => this.setState({ password: text })}
         />
         <KeyboardAvoidingView

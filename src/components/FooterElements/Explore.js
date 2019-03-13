@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import DatePickerModal from "../popupsModal/DatePickerModal";
-import RoomTypes from "../popupsModal/RoomTypes";
-import Gueststype from "../popupsModal/Gueststype";
+import GuestsRoomtype from "../popupsModal/GuestsRoomtype";
 import SearchCity from "../popupsModal/SearchCity";
 import SearchResultModal from "../popupsModal/SearchResultModal";
 
@@ -21,6 +20,44 @@ const winHeight = Dimensions.get("window").height;
 const winWidth = Dimensions.get("window").width;
 
 class Explore extends React.Component {
+  state = {
+    place: "",
+    checkin: "",
+    checkout: "",
+    guestcount: "",
+    roomtype: ""
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.saveDate = this.saveDate.bind(this);
+    this.savePlace = this.savePlace.bind(this);
+    this.saveRoomType = this.saveRoomType.bind(this);
+    this.saveGuests = this.saveGuests.bind(this);
+  }
+
+  savePlace(value) {
+    this.setState({ place: value });
+  }
+
+  saveDate(value1, value2) {
+    if (value1 != null) {
+      this.setState({ checkin: value1 });
+    }
+    if (value2 != null) {
+      this.setState({ checkout: value2 });
+    }
+  }
+
+  saveGuests(value) {
+    this.setState({ place: value });
+  }
+
+  saveRoomType(value) {
+    this.setState({ roomtype: value });
+  }
+
   componentDidMount() {
     this.props.navigation.setParams({
       title: "Clientes"
@@ -44,9 +81,13 @@ class Explore extends React.Component {
             Book your favorite hotel from anywhere and any place!
           </Text>
         </View>
-        <SearchCity />
+        <SearchCity
+          place={this.state.place}
+          navigation={this.props.navigation}
+          savePlace={this.savePlace}
+        />
         <View>
-          <DatePickerModal />
+          <DatePickerModal saveDate={this.saveDate} />
         </View>
         <View
           style={{
@@ -55,14 +96,26 @@ class Explore extends React.Component {
             marginRight: "auto"
           }}
         >
-          <Gueststype />
-          <View>
-            <RoomTypes />
-          </View>
+          <GuestsRoomtype
+            saveGuests={this.saveGuests}
+            saveRoomType={this.saveRoomType}
+          />
         </View>
         <View />
-
-        <SearchResultModal />
+        <Button
+          title="Go"
+          icon={
+            <Icon
+              name="location-arrow"
+              type="font-awesome"
+              color="#fff"
+              size={18}
+              style={styles.iconleft}
+            />
+          }
+          onPress={() => this.props.navigation.navigate("SearchResult")}
+          buttonStyle={styles.button}
+        />
       </View>
     );
   }

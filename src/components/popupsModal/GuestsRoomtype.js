@@ -13,8 +13,9 @@ import {
 import CalendarPicker from "react-native-calendar-picker";
 import { Button, SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import PropTypes from "prop-types";
 
-export default class GuestTypes extends Component {
+export default class GuestsRoomtype extends Component {
   state = {
     modalVisible: false
   };
@@ -38,44 +39,51 @@ export default class GuestTypes extends Component {
           }}
         >
           <View style={container}>
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
-            >
-              <Image
-                style={imageStyle}
-                source={require("../../assets/exit.png")}
-              />
-            </TouchableHighlight>
-            <Text>Search result</Text>
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+              >
+                <Image
+                  style={imageStyle}
+                  source={require("../../assets/leftarrow.png")}
+                  backgroundColor="#611AA7"
+                />
+              </TouchableOpacity>
+              {/* main code */}
+            </View>
           </View>
         </Modal>
         <TouchableOpacity onPress={() => this.setModalVisible(true)}>
-          <TextInput
-            style={styles.gestinputstyle}
-            editable={false}
-            placeholder="Guests"
-          />
+          <View style={{ flexDirection: "row" }}>
+            <TextInput
+              style={styles.gestinputstyle}
+              editable={false}
+              placeholder="Guests"
+            />
+            <TextInput
+              style={styles.gestinputstyle}
+              editable={false}
+              placeholder="Room types"
+            />
+          </View>
         </TouchableOpacity>
       </View>
     );
   }
 }
 
+GuestsRoomtype.propTypes = {
+  saveGuests: PropTypes.func,
+  saveRoomType: PropTypes.func
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column"
-  },
-  searchcontainer: {
-    backgroundColor: "transparent",
-    borderWidth: 0,
-    borderWidth: 0,
-    borderTopWidth: 0,
-    borderBottomWidth: 0
+    alignItems: "stretch",
+    justifyContent: "center"
   },
   gestinputstyle: {
     backgroundColor: "transparent",
@@ -85,6 +93,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 10,
     paddingHorizontal: 10
+  },
+  searchcontainer: {
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    borderWidth: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 0
   },
   buttonstyle: {
     backgroundColor: "transparent",
@@ -99,6 +114,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderTopWidth: 1,
     borderBottomWidth: 1
+  },
+  inputSearchText: {
+    backgroundColor: "#611AA7",
+    color: "white",
+    width: "100%"
   },
   textstyle: {
     flex: 1,
@@ -115,7 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ebaf00"
   },
   imageStyle: {
-    alignItems: "flex-end",
     width: 50,
     height: 50
   }

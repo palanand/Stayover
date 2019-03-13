@@ -6,15 +6,16 @@ import {
   Text,
   TouchableHighlight,
   TouchableOpacity,
+  TextInput,
   View,
   Alert
 } from "react-native";
 import CalendarPicker from "react-native-calendar-picker";
 import { Button, SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { TextInput } from "react-native-paper";
 import CitySuggestion from "../explorePageComponents/CitySuggestion";
-import { axios } from "axios";
+import axios from "axios";
+import PropTypes from "prop-types";
 
 export default class SearchCity extends Component {
   state = {
@@ -24,28 +25,38 @@ export default class SearchCity extends Component {
     results: []
   };
 
-  async getSearchCityData() {}
+  async getSearchCityData() {
+    const response = await axios
+      .get(`https://api.github.com/search/repositories?q= ${this.state.query}`)
+      .then(({ data }) => {
+        this.setState({
+          results: data.items
+        });
+      })
+      .catch(error => {
+        console.log(error.response);
+        this.setState({ error: true });
+      });
+  }
+  constructor(props) {
+    super(props);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.savePlaces = this.savePlaces.bind(this);
+  }
 
-  handleInputChange = () => {
-    this.setState(
-      {
-        query: this.search.value
-      },
-      () => {
-        this.getSearchCityData();
+  handleInputChange() {
+    if (this.state.query && this.state.query.length > 1) {
+      // this.showDropdown()
+      this.getSearchCityData();
+    } else if (!this.state.query) {
+      // this.hideDropdown()
+    }
+  }
 
-        if (this.state.query && this.state.query.length > 1) {
-          // this.showDropdown()
-          if (this.state.query.length % 2 === 0) {
-            this.getSearchCityData();
-          }
-        } else if (!this.state.query) {
-          // this.hideDropdown()
-        }
-      }
-    );
-  };
-
+  savePlaces(value) {
+    this.props.savePlace(value);
+    this.setModalVisible(false);
+  }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -65,27 +76,35 @@ export default class SearchCity extends Component {
           }}
         >
           <View style={container}>
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
-            >
-              <Image
-                style={imageStyle}
-                source={require("../../assets/exit.png")}
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+              >
+                <Image
+                  style={imageStyle}
+                  source={require("../../assets/leftarrow.png")}
+                  backgroundColor="#611AA7"
+                />
+              </TouchableOpacity>
+              {/* main code */}
+              <TextInput
+                style={styles.inputSearchText}
+                ref="CitySearchbox"
+                placeholder="Search for..."
+                placeholderTextColor="white"
+                onChangeText={text => {
+                  this.setState({ query: text });
+                  this.handleInputChange();
+                }}
               />
-            </TouchableHighlight>
-
-            {/* main code */}
-
-            <TextInput
-              style={styles.inputSearchText}
-              ref={input => (this.search = input)}
-              placeholder="Search for..."
-              onChange={this.handleInputChange.bind(this)}
+            </View>
+            <CitySuggestion
+              results={this.state.results}
+              navigation={this.props.navigation}
+              savePlaces={this.savePlaces}
             />
-
-            <CitySuggestion results={this.state.results} />
           </View>
         </Modal>
         <TouchableOpacity onPress={() => this.setModalVisible(true)}>
@@ -95,6 +114,7 @@ export default class SearchCity extends Component {
             inputContainerStyle={styles.searchinputstyle}
             placeholder="Where are You traveling?"
             round={true}
+            value={this.props.place}
             editable={false}
             onPress={() => this.setModalVisible(true)}
           />
@@ -103,7 +123,9 @@ export default class SearchCity extends Component {
     );
   }
 }
-
+SearchCity.propTypes = {
+  savePlace: PropTypes.func
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -132,7 +154,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   inputSearchText: {
-    borderRadius: 25
+    backgroundColor: "#611AA7",
+    color: "white",
+    width: "100%"
   },
   textstyle: {
     flex: 1,
@@ -149,7 +173,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ebaf00"
   },
   imageStyle: {
-    alignItems: "flex-end",
     width: 50,
     height: 50
   }

@@ -33,7 +33,7 @@ export default class LoginComponents extends Component {
 
     const response = await axios
       .post(
-        "https://vp3zckv2r8.execute-api.us-east-1.amazonaws.com/latest/signup",
+        "https://vp3zckv2r8.execute-api.us-east-1.amazonaws.com/latest/signin",
         {
           userName: this.state.userName,
           password: this.state.password,
@@ -44,8 +44,29 @@ export default class LoginComponents extends Component {
       )
       .then(response => {
         // handle success
-        console.log(response);
-        this.onLoginSuccess();
+        if (this.state.userName == "" || this.state.password == "") {
+          Alert.alert(
+            "Error",
+            "Please enter username & password to login or click on skip for now.",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false }
+          );
+          this.props.spinnerstart(false);
+
+          return;
+        }
+        if (response.data.Count != 0) {
+          console.log(response);
+          this.onLoginSuccess();
+        } else {
+          Alert.alert(
+            "Error",
+            "Invalid username or password",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false }
+          );
+          this.props.spinnerstart(false);
+        }
       })
       .catch(error => {
         console.log(error.response);
@@ -84,6 +105,7 @@ export default class LoginComponents extends Component {
 
         <Text style={styles.plainText}>Password</Text>
         <TextInput
+          secureTextEntry={true}
           style={styles.textinputstyle}
           onChangeText={text => this.setState({ password: text })}
         />

@@ -9,19 +9,41 @@ import {
   Alert
 } from "react-native";
 import { Button } from "react-native-elements";
+import PropTypes from "prop-types";
 
 import CalendarPicker from "react-native-calendar-picker";
 
 export default class DatePickerModal extends Component {
   state = {
-    modalVisible: false
+    modalVisible: false,
+    selectedStartDate: "",
+    selectedEndDate: ""
   };
+  constructor(props) {
+    super(props);
 
+    this.onDateChange = this.onDateChange.bind(this);
+  }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
 
-  onDateChange = () => {};
+  onDateChange(date, type) {
+    (startdate = null), (endDate = null);
+    if (type === "END_DATE") {
+      endDate = date;
+      this.setState({ selectedEndDate: new Date(date).toDateString() });
+      this.props.saveDate(startdate, endDate);
+
+      this.setState({ modalVisible: false });
+    } else {
+      startdate = date;
+      this.setState({ selectedStartDate: new Date(date).toDateString() });
+
+      this.props.saveDate(startdate, endDate);
+    }
+  }
+
   render() {
     const { textstyle, imageStyle, buttonstyle, container } = styles;
 
@@ -47,14 +69,14 @@ export default class DatePickerModal extends Component {
               />
             </TouchableOpacity>
             <CalendarPicker
-              onDateChange={this.onDateChange}
+              startFromMonday={true}
               allowRangeSelection={true}
+              minDate={new Date()}
               todayBackgroundColor="#f2e6ff"
-              selectedDayColor="#4D1FA7"
+              selectedDayColor="#7300e6"
               selectedDayTextColor="#FFFFFF"
-              onDateChange={this.onDateChange.bind(this)}
+              onDateChange={this.onDateChange}
             />
-            <Button title="Proceed" buttonStyle={styles.button} />
           </View>
         </Modal>
 
@@ -62,6 +84,11 @@ export default class DatePickerModal extends Component {
           <TextInput
             style={styles.textinputstyle}
             placeholder="Check-in / Check-out"
+            value={
+              this.state.selectedStartDate +
+              "                  " +
+              this.state.selectedEndDate
+            }
             editable={false}
           />
         </TouchableOpacity>
@@ -69,7 +96,9 @@ export default class DatePickerModal extends Component {
     );
   }
 }
-
+DatePickerModal.propTypes = {
+  saveDate: PropTypes.func
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
