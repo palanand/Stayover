@@ -92,7 +92,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginHorizontal: 10,
     marginBottom: 10,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    minWidth: 170, // This is just here because I can't make the textInput automatically grow on Android
+    maxWidth: "95%"
   },
   searchcontainer: {
     backgroundColor: "transparent",

@@ -16,8 +16,8 @@ import CalendarPicker from "react-native-calendar-picker";
 export default class DatePickerModal extends Component {
   state = {
     modalVisible: false,
-    selectedStartDate: "",
-    selectedEndDate: ""
+    selectedStartDate: "Check in",
+    selectedEndDate: "Check out"
   };
   constructor(props) {
     super(props);

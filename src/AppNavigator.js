@@ -6,6 +6,7 @@ import SearchResult from "./components/SearchResult";
 import LoginSignup from "./components/LoginSignup";
 import Splash from "./Splash";
 import ImageHeader from "./components/ImageHeader";
+import Hoteldetails from "./components/Details/Hoteldetails";
 
 const AppNavigator = createStackNavigator(
   {
@@ -36,6 +37,17 @@ const AppNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         title: "SearchResult",
         header: null
+      })
+    },
+
+    Hoteldetails: {
+      screen: Hoteldetails,
+      navigationOptions: ({ navigation }) => ({
+        title: navigation.getParam("HotelTitle", "Hotel details"),
+        headerTintColor: "white",
+        headerStyle: {
+          backgroundColor: "#4D1FA7"
+        }
       })
     }
   },

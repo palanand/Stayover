@@ -22,7 +22,7 @@ export default class SignupComponents extends Component {
     userName: "",
     password: "",
     // email: "",
-    countryCode: "IND",
+    countryCode: "US",
     contactNo: ""
   };
 
@@ -125,8 +125,7 @@ export default class SignupComponents extends Component {
               this.setState({ countryCode: itemValue })
             }
           >
-            <Picker.Item label="IND" value="IND" />
-            <Picker.Item label="USA" value="USA" />
+            <Picker.Item label="US" value="US" />
           </Picker>
           <Text style={{ width: "23%" }} />
           <TextInput
