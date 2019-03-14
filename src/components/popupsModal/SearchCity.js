@@ -27,10 +27,15 @@ export default class SearchCity extends Component {
 
   async getSearchCityData() {
     const response = await axios
-      .get(`https://api.github.com/search/repositories?q= ${this.state.query}`)
+
+      .get(
+        `https://vp3zckv2r8.execute-api.us-east-1.amazonaws.com/latest/search/${
+          this.state.query
+        }`
+      )
       .then(({ data }) => {
         this.setState({
-          results: data.items
+          results: data
         });
       })
       .catch(error => {

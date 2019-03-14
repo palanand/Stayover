@@ -12,10 +12,9 @@ import { Rating } from "react-native-elements";
 import ImageHeader from "../components/ImageHeader";
 import Icon from "react-native-vector-icons/FontAwesome";
 //import { Card, CardTitle, CardImage, CardAction } from "react-native-cards";
-
+import axios from "axios";
 const winHeight = Dimensions.get("window").height;
 const winWidth = Dimensions.get("window").width;
-//const { rating } = this.props;
 
 const cards = [
   {
@@ -154,7 +153,27 @@ const cards = [
     longitude: "85.657497"
   }
 ];
+
 export default class SearchResult extends React.Component {
+  async componentDidMount() {
+    const query = this.props.navigation.getParam("query", "Chelssi");
+
+    const res = await axios
+
+      .get(
+        `https://vp3zckv2r8.execute-api.us-east-1.amazonaws.com/latest/search/Walland`
+      )
+      .then(({ data }) => {
+        this.setState({
+          results: data
+        });
+      })
+      .catch(error => {
+        console.log(error.response);
+        this.setState({ error: true });
+      });
+  }
+  state = { results: [] };
   render() {
     const {
       maincontainer,
@@ -177,23 +196,26 @@ export default class SearchResult extends React.Component {
         <ImageHeader title="Search Results" />
         <View style={container}>
           <ScrollView>
-            {cards.map(items => (
+            {this.state.results.map(items => (
               <TouchableHighlight
-                key={items.id}
+                key={items.property_id}
                 onPress={() => {
                   /* 1. Navigate to the Details route with params */
                   this.props.navigation.navigate("Hoteldetails", {
                     itemData: items,
-                    HotelTitle: items.title
+                    HotelTitle: items.property_name
                   });
                 }}
               >
                 <View style={card}>
-                  <Image source={{ uri: items.picture }} style={cardImage} />
+                  <Image
+                    source={{ uri: items.property_image }}
+                    style={cardImage}
+                  />
                   <View style={FirstTag}>
-                    <Text style={subTitle}>{items.title}</Text>
+                    <Text style={subTitle}>{items.property_name}</Text>
                     <Rating
-                      startingValue={items.rating}
+                      startingValue={3}
                       ratingCount={5}
                       readonly
                       imageSize={15}
@@ -208,12 +230,14 @@ export default class SearchResult extends React.Component {
                       size={18}
                       style={styles.iconleft}
                     />
-                    <Text style={subdistance}>{items.distance}</Text>
-                    <Text style={subreview}>{items.review}</Text>
+                    <Text style={subdistance}>
+                      {items.property_nearest_landmark}
+                    </Text>
+                    <Text style={subreview}>{"53 reviews"}</Text>
                   </View>
                   <View style={ThridTag}>
-                    <Text style={subprice}>{items.price}</Text>
-                    <Text style={substatus}>{items.status}</Text>
+                    <Text style={subprice}>{"$1500"}</Text>
+                    <Text style={substatus}>{"Good"}</Text>
                   </View>
                 </View>
               </TouchableHighlight>

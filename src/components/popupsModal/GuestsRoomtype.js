@@ -3,21 +3,30 @@ import {
   Modal,
   Image,
   StyleSheet,
-  Text,
   TouchableHighlight,
   TouchableOpacity,
   TextInput,
   View,
+  Text,
   Alert
 } from "react-native";
 import CalendarPicker from "react-native-calendar-picker";
 import { Button, SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import PropTypes from "prop-types";
+import { CheckBox } from "react-native-elements";
+import NumericInput from "react-native-numeric-input";
 
 export default class GuestsRoomtype extends Component {
   state = {
-    modalVisible: false
+    modalVisible: false,
+    Hotelchecked: false,
+    Entirechecked: false,
+    Privatechecked: false,
+    Sharedchecked: false,
+    AdultCount: 0,
+    ChildrenCount: 0,
+    InfantCount: 0
   };
 
   setModalVisible(visible) {
@@ -27,7 +36,7 @@ export default class GuestsRoomtype extends Component {
   onDateChange = () => {};
   render() {
     const { textstyle, imageStyle, buttonstyle, container } = styles;
-
+    const { checked } = this.state;
     return (
       <View style={{ marginTop: 22 }}>
         <Modal
@@ -47,11 +56,100 @@ export default class GuestsRoomtype extends Component {
               >
                 <Image
                   style={imageStyle}
-                  source={require("../../assets/leftarrow.png")}
-                  backgroundColor="#611AA7"
+                  source={require("../../assets/exit.png")}
                 />
               </TouchableOpacity>
+
               {/* main code */}
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  color: "#4C42AD",
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  marginTop: 8
+                }}
+              >
+                Guests
+              </Text>
+              <View style={{ flexDirection: "row", padding: 23 }}>
+                <Text
+                  style={{
+                    flex: 1,
+                    fontWeight: "bold",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  Children
+                </Text>
+                <NumericInput rounded onChange={value => console.log(value)} />
+              </View>
+              <View style={{ flexDirection: "row", padding: 23 }}>
+                <Text
+                  style={{
+                    flex: 1,
+                    fontWeight: "bold",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  Infants
+                </Text>
+                <NumericInput rounded onChange={value => console.log(value)} />
+              </View>
+              <View style={{ flexDirection: "row", padding: 23 }}>
+                <Text
+                  style={{
+                    flex: 1,
+                    fontWeight: "bold",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  Adults
+                </Text>
+                <NumericInput rounded onChange={value => console.log(value)} />
+              </View>
+              <Text
+                style={{
+                  color: "#4C42AD",
+                  marginTop: 25,
+                  fontWeight: "bold",
+                  fontSize: 18
+                }}
+              >
+                Room Type
+              </Text>
+              <CheckBox
+                title="Hotel Room"
+                onPress={() =>
+                  this.setState({ Hotelchecked: !this.state.Hotelchecked })
+                }
+                checked={this.state.Hotelchecked}
+              />
+              <CheckBox
+                title="Entire Place"
+                onPress={() =>
+                  this.setState({ Entirechecked: !this.state.Entirechecked })
+                }
+                checked={this.state.Entirechecked}
+              />
+              <CheckBox
+                title="Private Room"
+                onPress={() =>
+                  this.setState({ Privatechecked: !this.state.Privatechecked })
+                }
+                checked={this.state.Privatechecked}
+              />
+              <CheckBox
+                title="Shared Room"
+                onPress={() =>
+                  this.setState({ Sharedchecked: !this.state.Sharedchecked })
+                }
+                checked={this.state.Sharedchecked}
+              />
             </View>
           </View>
         </Modal>

@@ -113,7 +113,11 @@ class Explore extends React.Component {
               style={styles.iconleft}
             />
           }
-          onPress={() => this.props.navigation.navigate("SearchResult")}
+          onPress={() =>
+            this.props.navigation.navigate("SearchResult", {
+              query: this.state.place
+            })
+          }
           buttonStyle={styles.button}
         />
       </View>

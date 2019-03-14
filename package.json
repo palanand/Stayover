@@ -17,6 +17,7 @@
     "react-native-elements": "^1.1.0",
     "react-native-fontawesome": "^6.0.1",
     "react-native-gesture-handler": "^1.0.16",
+    "react-native-numeric-input": "^1.6.5",
     "react-native-paper": "^2.11.1",
     "react-native-swiper": "^1.5.14",
     "react-native-switch-selector": "^1.1.11",

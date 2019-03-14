@@ -25,10 +25,10 @@ export default class CitySuggestion extends Component {
           renderItem={({ item }) => (
             <TouchableOpacity
               id={item.id}
-              onPress={() => this.Citysave(item.full_name)}
+              onPress={() => this.Citysave(item.city + ", " + item.state)}
             >
               <Text key={item.id} style={styles.item}>
-                {item.full_name}
+                {item.city + ", " + item.state}
               </Text>
             </TouchableOpacity>
           )}

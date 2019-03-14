@@ -57,7 +57,7 @@ export default class DatePickerModal extends Component {
             this.setModalVisible(!this.state.modalVisible);
           }}
         >
-          <View style={container}>
+          <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={() => {
                 this.setModalVisible(!this.state.modalVisible);
@@ -68,6 +68,9 @@ export default class DatePickerModal extends Component {
                 source={require("../../assets/exit.png")}
               />
             </TouchableOpacity>
+          </View>
+
+          <View style={{ flex: 1 }}>
             <CalendarPicker
               startFromMonday={true}
               allowRangeSelection={true}

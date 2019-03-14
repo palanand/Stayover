@@ -27,8 +27,10 @@ class HotelDetails extends Component {
   renderDetail = () => {
     return (
       <View>
-        <Text style={styles.detailText}>For Sale Property Details</Text>
-        <Text style={styles.subDetailText}>{hotelDetails.description}</Text>
+        <Text style={styles.detailText}>Property Details</Text>
+        <Text style={styles.subDetailText}>
+          {hotelDetails.property_description}
+        </Text>
       </View>
     );
   };
@@ -70,7 +72,7 @@ class HotelDetails extends Component {
         <View style={styles.coverContainer}>
           <ImageBackground
             source={{
-              uri: hotelDetails.picture
+              uri: hotelDetails.property_image
             }}
             style={styles.coverImage}
           >
@@ -96,12 +98,12 @@ class HotelDetails extends Component {
         </ScrollView>
         <View style={styles.footer}>
           <TouchableOpacity style={styles.buttonFooter}>
-            <Text style={styles.textFooter}>CALL</Text>
+            <Text style={styles.textFooter}>Book</Text>
           </TouchableOpacity>
           <View style={styles.borderCenter} />
-          <TouchableOpacity style={styles.buttonFooter}>
+          {/* <TouchableOpacity style={styles.buttonFooter}>
             <Text style={styles.textFooter}>EMAIL</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     );
