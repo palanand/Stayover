@@ -59,7 +59,14 @@ class HotelDetails extends Component {
         <TouchableOpacity style={[styles.navigatorButton, { flex: 2 }]}>
           <Text style={styles.navigatorText}>STREET VIEW</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.navigatorButton, { flex: 1 }]}>
+        <TouchableOpacity
+          style={[styles.navigatorButton, { flex: 1 }]}
+          onPress={() =>
+            this.props.navigation.navigate("HotelMapView", {
+              //query: this.state.place
+            })
+          }
+        >
           <Text style={styles.navigatorText}>MAP</Text>
         </TouchableOpacity>
       </View>

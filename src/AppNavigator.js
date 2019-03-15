@@ -7,6 +7,7 @@ import LoginSignup from "./components/LoginSignup";
 import Splash from "./Splash";
 import ImageHeader from "./components/ImageHeader";
 import Hoteldetails from "./components/Details/Hoteldetails";
+import HotelMapView from "./components/HotelMapView";
 
 const AppNavigator = createStackNavigator(
   {
@@ -48,6 +49,13 @@ const AppNavigator = createStackNavigator(
         headerStyle: {
           backgroundColor: "#4D1FA7"
         }
+      })
+    },
+
+    HotelMapView: {
+      screen: HotelMapView,
+      navigationOptions: ({ navigation }) => ({
+        title: "HotelMapView"
       })
     }
   },
